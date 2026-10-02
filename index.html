@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Estudaê — organização escolar">
+  <title>Estudaê | Organização escolar</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a href="#" class="brand" data-page="inicio" aria-label="Ir para o início">
+        <span class="brand-mark">E</span>
+        <span>Estudaê</span>
+      </a>
+      <nav class="nav" aria-label="Navegação principal">
+        <button class="nav-link active" data-page="inicio">Início</button>
+        <button class="nav-link" data-page="cadastro">Nova atividade</button>
+        <button class="nav-link" data-page="atividades">Atividades</button>
+        <button class="nav-link" data-page="calendario">Calendário</button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="inicio" class="page active-page" aria-labelledby="inicio-title">
+        <div class="hero">
+          <div>
+            <p class="eyebrow">ORGANIZAÇÃO ESCOLAR</p>
+            <h1 id="inicio-title">Olá, estudante 👋</h1>
+            <p class="hero-text">Veja o que precisa ser feito e organize seus próximos prazos em um só lugar.</p>
+          </div>
+          <button class="primary-btn" data-page="cadastro">+ Nova atividade</button>
+        </div>
+
+        <div class="summary-grid" id="summary-grid"></div>
+
+        <div class="dashboard-grid">
+          <article class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">PRÓXIMOS PRAZOS</p>
+                <h2>O que vem por aí</h2>
+              </div>
+              <button class="text-btn" data-page="atividades">Ver todas</button>
+            </div>
+            <div id="upcoming-list" class="activity-list"></div>
+          </article>
+
+          <article class="panel priority-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">ATENÇÃO</p>
+                <h2>Prioridades</h2>
+              </div>
+            </div>
+            <div id="priority-list" class="activity-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="cadastro" class="page" aria-labelledby="cadastro-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">NOVA ATIVIDADE</p>
+            <h1 id="cadastro-title">Cadastre uma tarefa</h1>
+            <p>Registre os detalhes para não perder o prazo.</p>
+          </div>
+        </div>
+
+        <form id="activity-form" class="form-panel" novalidate>
+          <div class="form-grid">
+            <div class="field field-full">
+              <label for="titulo">Nome da atividade *</label>
+              <input id="titulo" name="titulo" type="text" autocomplete="off" placeholder="Ex.: Prova de Matemática">
+              <small class="field-error" id="error-titulo"></small>
+            </div>
+
+            <div class="field">
+              <label for="disciplina">Disciplina *</label>
+              <input id="disciplina" name="disciplina" type="text" autocomplete="off" placeholder="Ex.: Matemática">
+              <small class="field-error" id="error-disciplina"></small>
+            </div>
+
+            <div class="field">
+              <label for="tipo">Tipo *</label>
+              <select id="tipo" name="tipo">
+                <option value="">Selecione</option>
+                <option>Prova</option>
+                <option>Trabalho</option>
+                <option>Atividade</option>
+                <option>Outro</option>
+              </select>
+              <small class="field-error" id="error-tipo"></small>
+            </div>
+
+            <div class="field">
+              <label for="data">Data de entrega *</label>
+              <input id="data" name="data" type="date">
+              <small class="field-error" id="error-data"></small>
+            </div>
+
+            <div class="field">
+              <label for="urgencia">Nível de urgência *</label>
+              <select id="urgencia" name="urgencia">
+                <option value="">Selecione</option>
+                <option>Baixa</option>
+                <option>Média</option>
+                <option>Alta</option>
+              </select>
+              <small class="field-error" id="error-urgencia"></small>
+            </div>
+
+            <div class="field field-full">
+              <label for="descricao">Descrição</label>
+              <textarea id="descricao" name="descricao" rows="5" placeholder="Adicione conteúdos, orientações ou observações importantes."></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="secondary-btn" data-page="inicio">Cancelar</button>
+            <button type="submit" class="primary-btn">Adicionar atividade</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="atividades" class="page" aria-labelledby="atividades-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">MINHAS ATIVIDADES</p>
+            <h1 id="atividades-title">Tudo organizado</h1>
+            <p>Filtre suas tarefas e acompanhe o andamento.</p>
+          </div>
+          <button class="primary-btn" data-page="cadastro">+ Nova atividade</button>
+        </div>
+
+        <div class="filters" role="group" aria-label="Filtros de atividades">
+          <button class="filter active" data-filter="todas">Todas</button>
+          <button class="filter" data-filter="pendentes">Pendentes</button>
+          <button class="filter" data-filter="concluidas">Concluídas</button>
+          <button class="filter" data-filter="Alta">Urgência alta</button>
+          <button class="filter" data-filter="Média">Urgência média</button>
+          <button class="filter" data-filter="Baixa">Urgência baixa</button>
+        </div>
+
+        <div id="all-activities" class="cards-grid"></div>
+      </section>
+
+      <section id="calendario" class="page" aria-labelledby="calendario-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">CALENDÁRIO</p>
+            <h1 id="calendario-title">Seus prazos</h1>
+            <p>Escolha um dia para ver as atividades programadas.</p>
+          </div>
+        </div>
+
+        <div class="calendar-panel">
+          <div class="calendar-header">
+            <button class="icon-btn" id="prev-month" aria-label="Mês anterior">‹</button>
+            <h2 id="month-title"></h2>
+            <button class="icon-btn" id="next-month" aria-label="Próximo mês">›</button>
+          </div>
+          <div class="weekdays" aria-hidden="true">
+            <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+          </div>
+          <div id="calendar-grid" class="calendar-grid"></div>
+          <div id="selected-day" class="selected-day"></div>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <div id="details-modal" class="modal" aria-hidden="true">
+      <div class="modal-backdrop" data-close-modal></div>
+      <article class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="modal-close" data-close-modal aria-label="Fechar">×</button>
+        <p class="eyebrow">DETALHES</p>
+        <h2 id="modal-title"></h2>
+        <div id="modal-content"></div>
+      </article>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
